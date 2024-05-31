@@ -8,9 +8,11 @@ package tictactoe.practicafinalmtpa;
  *
  * @author pablo
  */
-public class PracticaFinalMTPA {
+public class Cliente {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        
+        
     }
 }
