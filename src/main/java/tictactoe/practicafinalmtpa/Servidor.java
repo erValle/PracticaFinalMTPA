@@ -4,7 +4,12 @@ package tictactoe.practicafinalmtpa;
 
 import java.io.*;
 import java.net.*;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.util.logging.Level;
+import java.util.logging.Logger;
+>>>>>>> e28981b61e2190f5fbe6943ba54b06e908385fb2
 
 /**
  *
@@ -36,7 +41,13 @@ class Connection extends Thread{
     DataOutputStream out;
     String db_credenciales;
     
+<<<<<<< HEAD
     Socket clientSocket;    
+=======
+    Socket clientSocket;
+
+    
+>>>>>>> e28981b61e2190f5fbe6943ba54b06e908385fb2
     
     public Connection(Socket aClientSocket, String db_credenciales){
         try {
@@ -46,7 +57,10 @@ class Connection extends Thread{
             out = new DataOutputStream(clientSocket.getOutputStream());
             
             this.start();
+<<<<<<< HEAD
             
+=======
+>>>>>>> e28981b61e2190f5fbe6943ba54b06e908385fb2
             out.writeUTF("comunciacion_establecida");
         } catch (IOException ex) {
             System.out.println("Connection:" + ex.getMessage());
@@ -56,6 +70,10 @@ class Connection extends Thread{
     public void run(){
         try {
             String opcion = in.readUTF();
+<<<<<<< HEAD
+=======
+            
+>>>>>>> e28981b61e2190f5fbe6943ba54b06e908385fb2
             switch(opcion){
                 case "Registro":
                     //Cuando recibe esta opcion, obtiene el usuario y la contraseña y la escribe en un archivo cuyo nombre está en una variable "db_credenciales"
@@ -115,8 +133,11 @@ class Connection extends Thread{
                         }
                         if(encontrado){
                             out.writeUTF("login_correcto");
+<<<<<<< HEAD
                             //Crea un cliente
                             //Le dice al cliente que instancie el menu
+=======
+>>>>>>> e28981b61e2190f5fbe6943ba54b06e908385fb2
                         }else{
                             out.writeUTF("fallo_login");
                         }
