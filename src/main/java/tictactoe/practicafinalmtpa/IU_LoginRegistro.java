@@ -17,6 +17,9 @@ import javax.swing.*;
  */
 public class IU_LoginRegistro extends javax.swing.JPanel {
     
+    //Creamos una variable que relaciona este panel con el Frame que lo contiene
+    private JFrame parentFrame;
+    
     Socket Login = null;
     DataOutputStream out = null;
     DataInputStream in = null;
@@ -28,13 +31,14 @@ public class IU_LoginRegistro extends javax.swing.JPanel {
             @Override
             public void run() {
                 // Crear un JFrame y configurarlo
-                JFrarame = new JFrame("Login/Registro");
-                frame.setDefaultCloseOperationme f(JFrame.EXIT_ON_CLOSE);
+                JFrame frame = new JFrame("Login/Registro");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(700, 500);
                 frame.setLocationRelativeTo(null);
                 
                 // Crear una instancia de IU_LoginRegistro y añadirla al JFrame
                 IU_LoginRegistro panel = new IU_LoginRegistro();
+                panel.setParentFrame(frame);
                 frame.add(panel);
                 
                 // Hacer visible el JFrame
@@ -44,9 +48,13 @@ public class IU_LoginRegistro extends javax.swing.JPanel {
     }
     
     public IU_LoginRegistro() {
-        
         initComponents();
         this.setVisible(true);
+        
+    }
+    
+    public void setParentFrame(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
     }
 
     /**
@@ -123,13 +131,10 @@ public class IU_LoginRegistro extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(230, 230, 230)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(90, Short.MAX_VALUE)
@@ -205,10 +210,10 @@ public class IU_LoginRegistro extends javax.swing.JPanel {
         
         String respuestaServer = in.readUTF();
         
-        if(respuestaServer.equals("comunicacion_iniciada")){
+        if(respuestaServer.equals("comunciacion_establecida")){
+            out.writeUTF(opcion);
             out.writeUTF(user);
             out.writeUTF(password);
-            out.writeUTF(opcion);
             
             respuestaServer = in.readUTF();
             if(respuestaServer.equals("fallo_login")){
@@ -217,10 +222,15 @@ public class IU_LoginRegistro extends javax.swing.JPanel {
             if(respuestaServer.equals("fallo_registro")){
                 labelError.setText("Usuario ya registrado.");
             }
-            if(respuestaServer.equals("fin_login")){
+            if(respuestaServer.equals("login_correcto")){
                 out.close();
                 in.close();
                 Login.close();
+                
+                if (parentFrame != null) {
+                    parentFrame.dispose();
+                }
+                
             }
                
         } else {
