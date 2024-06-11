@@ -11,4 +11,5 @@
         <maven.compiler.target>20</maven.compiler.target>
         <exec.mainClass>tictactoe.practicafinalmtpa.PracticaFinalMTPA</exec.mainClass>
     </properties>
+    <name>PracticaFinalMTPAold</name>
 </project>
