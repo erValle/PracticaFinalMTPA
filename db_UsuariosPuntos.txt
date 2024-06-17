@@ -1,0 +1,3 @@
+daniel;1;0
+pablo;0;2
+pedro;1;0
